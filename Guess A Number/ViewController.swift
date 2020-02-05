@@ -121,8 +121,8 @@ class ViewController: UIViewController {
             setNumOfTries(number: numOfTries + 1)
             
             //check if guessed number is less than random number
-            //and set result message to high or low accordingly
-            message = currentNum < randomNumber ? TOO_HIGH : TOO_LOW
+            //and set result message as too low or high accordingly
+            message = currentNum < randomNumber ? TOO_LOW : TOO_HIGH
             
             //clear out the text input for another guess
             guessTextField.text = ""
