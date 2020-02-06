@@ -52,6 +52,9 @@ class ViewController: UIViewController {
     /// Minimum limit for the random number
     private let MIN_NUM = 1
     
+    /// Suffix for end of message
+    private let MESSAGE_SUFFIX = "!"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -102,7 +105,7 @@ class ViewController: UIViewController {
         let currentNum = Int(guessString)!
         
         //message to display result of the guess
-        var message = String(describing: currentNum) + "!"
+        var message: String!
         
         //check if the guessed number is the random number
         if(currentNum == randomNumber){
@@ -111,7 +114,7 @@ class ViewController: UIViewController {
             message = CORRECT
             
             //change the submit button accordingly to allow playing again
-            submitButton.setTitle("PLAY AGAIN", for: .normal)
+            submitButton.setTitle(PLAY_AGAIN_TITLE, for: .normal)
         }
         
         //else the guessed number is not correct
@@ -121,11 +124,15 @@ class ViewController: UIViewController {
             setNumOfTries(number: numOfTries + 1)
             
             //check if guessed number is less than random number
-            //and set result message as too low or high accordingly
-            message = currentNum < randomNumber ? TOO_LOW : TOO_HIGH
+            //and set a prefix message as too low or high accordingly
+            let prefix = currentNum < randomNumber ? TOO_LOW : TOO_HIGH
+            
+            //concatenate the prefix message, guessed number and message suffix
+            //to display a clean final message to the user
+            message = prefix + guessString + MESSAGE_SUFFIX
             
             //clear out the text input for another guess
-            guessTextField.text = ""
+            guessTextField.text?.removeAll()
         }
         
         //display the result of the guess on the info label
@@ -160,10 +167,10 @@ class ViewController: UIViewController {
         setNumOfTries(number: 0)
         
         //clear out the input text
-        guessTextField.text = ""
+        guessTextField.text?.removeAll()
         
         //clear out the info label
-        infoLabel.text = ""
+        infoLabel.text?.removeAll()
         
     }
     
